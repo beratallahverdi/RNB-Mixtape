@@ -2,7 +2,7 @@ import json
 import requests
 import uuid
 import base64
-
+from dotenv import dotenv_values
 
 class User:
     _id = None
@@ -29,7 +29,7 @@ class User:
         response = requests.get(
             'https://is2zf3b1z3.execute-api.us-east-2.amazonaws.com/default/users?id={}'.format(
                 self._id),
-            headers={'x-api-key': 'RndMImQoFj2d3dRt4Qoa45AMYuPrD621likw82f4'}, json={
+            headers={'x-api-key': dotenv_values(".env")['USERS_API_KEY']}, json={
                 '_id': self._id,
             })
         user = response.json()['Item']
@@ -44,14 +44,14 @@ class User:
     def get_users(self) -> list:
         response = requests.get(
             'https://is2zf3b1z3.execute-api.us-east-2.amazonaws.com/default/users', headers={
-                'x-api-key': 'RndMImQoFj2d3dRt4Qoa45AMYuPrD621likw82f4',
+                'x-api-key': dotenv_values(".env")['USERS_API_KEY'],
             }, json={})
         return [User(json=user) for user in response.json()['Items']]
 
     def create_user(self) -> dict:
         response = requests.post(
             'https://is2zf3b1z3.execute-api.us-east-2.amazonaws.com/default/users', headers={
-                'x-api-key': 'RndMImQoFj2d3dRt4Qoa45AMYuPrD621likw82f4',
+                'x-api-key': dotenv_values(".env")['USERS_API_KEY'],
                 'Content-Type': 'application/json',
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
                 "Accept-Encoding": "gzip, deflate, sdch",
@@ -70,7 +70,7 @@ class User:
     def update_user(self, data: dict) -> dict:
         response = requests.put(
             'https://is2zf3b1z3.execute-api.us-east-2.amazonaws.com/default/users', headers={
-                'x-api-key': 'RndMImQoFj2d3dRt4Qoa45AMYuPrD621likw82f4',
+                'x-api-key': dotenv_values(".env")['USERS_API_KEY'],
             }, json={
                 '_id': self._id,
                 'username': data['username'] if 'username' in data else self.username,
@@ -85,7 +85,7 @@ class User:
     def delete_user(self) -> dict:
         response = requests.delete(
             'https://is2zf3b1z3.execute-api.us-east-2.amazonaws.com/default/users', headers={
-                'x-api-key': 'RndMImQoFj2d3dRt4Qoa45AMYuPrD621likw82f4',
+                'x-api-key': dotenv_values(".env")['USERS_API_KEY'],
                 'Content-Type': 'application/json',
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
                 "Accept-Encoding": "gzip, deflate, sdch",
