@@ -4,7 +4,7 @@ import uuid
 import base64
 from dotenv import dotenv_values
 
-class User:
+class RNBUser:
     _id = None
     username = ''
     password = ''
@@ -16,7 +16,7 @@ class User:
 
     def __init__(self, json=None):
         if json is not None:
-            self._id = json['_id']
+            self._id = json['_id'] if '_id' in json else self._id
             self.user_id = json['user_id'] if 'user_id' in json else self._id
             self.username = json['username'] if 'username' in json else ''
             self.first_name = json['first_name'] if 'first_name' in json else ''
@@ -46,7 +46,7 @@ class User:
             'https://is2zf3b1z3.execute-api.us-east-2.amazonaws.com/default/users', headers={
                 'x-api-key': dotenv_values(".env")['USERS_API_KEY'],
             }, json={})
-        return [User(json=user) for user in response.json()['Items']]
+        return [RNBUser(json=user) for user in response.json()['Items']]
 
     def create_user(self) -> dict:
         response = requests.post(
@@ -93,9 +93,10 @@ class User:
             }, json={'_id': self._id})
         return response.json()
 
-
+'''
 user = User()
 users = user.get_users()
 updatedUser = users[1]
 updatedUser.update_user({'username': 'testDeneme'})
 print(updatedUser.get_user().username)
+'''

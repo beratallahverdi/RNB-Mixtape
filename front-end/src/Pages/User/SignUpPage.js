@@ -11,46 +11,42 @@ class SignUpPage extends React.Component{
                     <p class="divider-text">
                         <span class="bg-light"></span>
                     </p>
-                    <form>
-                    <div class="form-group input-group">
+                    <form className="form-group">
+                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                         </div>
-                        <input name="" class="form-control" id="adsoyad"placeholder="Ad Soyad" type="text" />
+                        <input name="" class="form-control" id="adsoyad" placeholder="Ad Soyad" type="text" />
                     </div> 
-                    <div class="form-group input-group">
+                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                         </div>
-                        <input name="" class="form-control" id="eposta"placeholder="E-Posta" type="email" />
+                        <input name="" class="form-control" id="eposta" placeholder="E-Posta" type="email" />
                     </div>
-                    <div class="form-group input-group">
+                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
                         </div>
                        
-                        <input name="" class="form-control" id="telefon"placeholder="0-530 351 9329" type="text" />
+                        <input name="" class="form-control" id="telefon" placeholder="0-530 351 9329" type="text" />
                     </div> 
-                    <div class="form-group input-group">
+                    <div class="input-group">
                         
                         
                     </div> 
-                    <div class="form-group input-group">
+                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                         </div>
-                        <input class="form-control" id="parola"placeholder="Parola" type="password" />
+                        <input class="form-control" id="parola" placeholder="Parola" type="password" />
                     </div> 
-                    <div class="form-group input-group">
+                    <div class="input-group mb-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                         </div>
-                        <input class="form-control" id="parola2"placeholder="Parola Tekrar" type="password" />
-                    </div>
-                    <div>
-                        <br>
-                        </br>
-                    </div>                                       
+                        <input class="form-control" id="parola2" placeholder="Parola Tekrar" type="password" />
+                    </div>                                 
                     <div class="form-group">
                         <button type="button" class="btn btn-primary btn-block" type="submit" onClick={(e) => {
                             e.preventDefault();
@@ -60,7 +56,21 @@ class SignUpPage extends React.Component{
                             let password = document.getElementById('parola').value;
                             let password2 = document.getElementById('parola2').value;
 
-                            axios.get(`http://localhost:8000/user?email=${email}&password=${password}`);
+                            axios.post("http://127.0.0.1:8000/user/",{
+                                headers:{
+                                    "Content-Type":"text/plain",
+                                    "Access-Control-Allow-Origin": "*"
+                                },
+                                data:{
+                                    "first_name":adSoyad,
+                                    "last_name":adSoyad,
+                                    "username":email,
+                                    "email":email,
+                                    "phone_number":telefonNo,
+                                    "user_id":password,
+                                    "_id":password,
+                                }
+                            });
                         }} > Yeni Hesap Oluştur  </button>
                     </div>  
                     <div>
