@@ -54,11 +54,11 @@ class SignUpPage extends React.Component{
                     <div class="form-group">
                         <button type="button" class="btn btn-primary btn-block" type="submit" onClick={(e) => {
                             e.preventDefault();
-                            let adSoyad = document.getElementById('adsoyad');
+                            let adSoyad = document.getElementById('adsoyad').value;
                             let email = document.getElementById('eposta').value;
-                            let telefonNo = document.getElementById('telefon');
+                            let telefonNo = document.getElementById('telefon').value;
                             let password = document.getElementById('parola').value;
-                            let password2 = document.getElementById('parola2');
+                            let password2 = document.getElementById('parola2').value;
 
                             axios.get(`http://localhost:8000/user?email=${email}&password=${password}`);
                         }} > Yeni Hesap Oluştur  </button>
